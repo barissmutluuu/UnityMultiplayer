@@ -4,17 +4,18 @@ namespace Mirror.Examples.Benchmark
 {
     public class PlayerMovement : NetworkBehaviour
     {
-        public float speed = 5;
+	public CharacterController controller;
+        public float speed = 12;
 
         void Update()
         {
             if (!isLocalPlayer) return;
 
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
 
-            Vector3 dir = new Vector3(h, 0, v);
-            transform.position += dir.normalized * (Time.deltaTime * speed);
-        }
-    }
+            Vector3 move = transform.right * x + transform.forward * z;
+            controller.Move(move*speed*Time.deltaTime);
+    	}
+	}
 }
