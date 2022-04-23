@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
-
-namespace Mirror.Examples.Benchmark
-{
+using Mirror;
     public class PlayerMovement : NetworkBehaviour
     {
 	public CharacterController controller;
         public float speed = 12;
+        public GameObject CameraMountPoint;
 
-        void Update()
+        void Start()
+        {
+        if (isLocalPlayer)
+        {
+            CameraMountPoint.SetActive(true);
+        }
+        }
+    void Update()
         {
             if (!isLocalPlayer) return;
 
@@ -18,4 +24,4 @@ namespace Mirror.Examples.Benchmark
             controller.Move(move*speed*Time.deltaTime);
     	}
 	}
-}
+

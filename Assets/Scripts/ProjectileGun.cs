@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using TMPro;
+using Mirror;
 
 /// Thanks for downloading my projectile gun script! :D
 /// Feel free to use it in any project you like!
@@ -10,8 +11,9 @@ using TMPro;
 /// or use the #coding-problems channel of my discord server
 /// 
 /// Dave
-public class ProjectileGun : MonoBehaviour
+public class ProjectileGun : NetworkBehaviour
 {
+    public NetworkIdentity myPlayerNetworkIdentity; 
     public bool shootingEnabled = true;
 
     [Header("Attatch your bullet prefab")]
@@ -48,23 +50,26 @@ public class ProjectileGun : MonoBehaviour
     }
     void Update()
     {
-        MyInput();
+        if (myPlayerNetworkIdentity.isLocalPlayer)
+        {
+            MyInput();
+        }
+        
     }
+
+
     private void MyInput()
     {
-        //Input
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
-
-        //Shoot
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            bulletsShot = bulletsPerTap;
             Shoot(); //Function has to be after bulletsShot = bulletsPerTap
         }
+            
+        
     }
+
+    [Command]
     private void Shoot()
     {
         if (!shootingEnabled) return;
@@ -84,58 +89,18 @@ public class ProjectileGun : MonoBehaviour
         //Calculate direction
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
-        //Spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-        float z = Random.Range(-spread, spread);
 
         //Calc Direction with Spread
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, z);
+        Vector3 directionWithSpread = directionWithoutSpread;
 
         //Instantiate bullet/projectile
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithSpread.normalized;
 
-        //AddForce
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
-        //Activate bullet
-       // if (currentBullet.GetComponent<CustomProjectiles>()) currentBullet.GetComponent<CustomProjectiles>().activated = true;
+        Vector3 way = fpsCam.transform.up * upwardForce;
 
-       // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().SendBullet(attackPoint, directionWithSpread,shootForce,way);
 
-        //Shake Camera
-        //camShake.StartCoroutine(camShake.Shake(camShakeDuration, camShakeMagnitude));
-
-        bulletsLeft--;
-        bulletsShot--;
-
-        if (allowInvoke)
-        {
-            Invoke("ShotReset", timeBetweenShooting);
-            allowInvoke = false;
-
-        }
-
-        if (bulletsShot > 0 && bulletsLeft > 0)
-            Invoke("Shoot", timeBetweenShots);
     }
-    private void ShotReset()
-    {
-        readyToShoot = true;
-        allowInvoke = true;
-    }
-    private void Reload()
-    {
-        reloading = true;
 
-        Invoke("ReloadingFinished", reloadTime);
-    }
-    private void ReloadingFinished()
-    {
-        bulletsLeft = magazineSize;
-        reloading = false;
-    }
 
     #region Setters
 

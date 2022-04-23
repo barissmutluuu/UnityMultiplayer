@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
-    public Transform cam;
-    public float speed;
-    public float spread;
 
-
-    private void Awake()
-    {
-        cam = GameObject.Find("fps cam").transform;
-
-        //Random Spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-        float z = Random.Range(-spread, spread);
-        transform.Rotate(new Vector3(x, y, z));
-    }
     private void Update()
     {
-        transform.Translate(cam.forward * speed * Time.deltaTime);
     }
+    public void SendBullet(Transform attackPoint,Vector3 directionWithSpread, float shootForce, Vector3 way)
+    {
+
+        GameObject currentBullet = Instantiate(gameObject, attackPoint.position, Quaternion.identity);
+        NetworkServer.Spawn(currentBullet.gameObject);
+
+        currentBullet.transform.forward = directionWithSpread.normalized;
+
+        Debug.Log(directionWithSpread.normalized * shootForce);
+        Debug.Log(way);
+
+        //AddForce
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(way, ForceMode.Impulse);
+
+
+    }
+
 }

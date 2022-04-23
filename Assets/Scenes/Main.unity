@@ -168,12 +168,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195255094}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: df195ce493ed09b4c929f832263ba617, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0155247, y: 1, z: 20.44614}
+  m_Center: {x: 0.007762985, y: 0, z: 9.72307}
 --- !u!23 &195255097
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -333,12 +333,12 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684062439}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: df195ce493ed09b4c929f832263ba617, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 13.342237, z: 0.9998995}
+  m_Center: {x: 0.00090724946, y: -6.1711187, z: -0.00004940033}
 --- !u!23 &684062442
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -633,7 +633,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 6485534822727496320, guid: 276910d5c61864540b0848e9b1dbad3a, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 665048869597467114, guid: a3904032057ee6d41be516c515f0e2b8, type: 3}
 --- !u!4 &1573171327
 Transform:
   m_ObjectHideFlags: 0
@@ -693,7 +694,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695182405}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 87a6b49d52c77f24d9c4932a08dcfaba, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000001
@@ -794,7 +795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
@@ -859,7 +860,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114901892}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f2bb9a8ecc30457468aea7dacef6f5de, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -959,7 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1
