@@ -12,7 +12,16 @@ using Mirror;
         {
             CameraMountPoint.SetActive(true);
         }
+
+
+
         }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        gameObject.name = "Local";
+    }
     void Update()
         {
             if (!isLocalPlayer) return;
